@@ -1,40 +1,49 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Web3 from "web3";
 
-const App = () => {
+const App: React.FC = () => {
+  const [web3, setWeb3] = useState<Web3 | null>(null);
+  const [accounts, setAccounts] = useState<string[]>([]);
   const [isConnecting, setIsConnecting] = useState(false);
-  const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
   const walletConnect = async () => {
-    if ((window as WindowWithEthereum).ethereum) {
+    // MetaMask 연결
+    if (window.ethereum) {
+      const web3Instance = new Web3(window.ethereum);
       try {
-        const accounts = await (window as WindowWithEthereum).ethereum?.request(
-          {
-            method: "eth_requestAccounts",
-          }
-        );
-        if (accounts && accounts.length > 0) {
-          console.log("Connected to", accounts[0]);
-          setWalletAddress(accounts[0]);
-
-          setIsConnecting(true);
-        }
+        // 계정 접근을 사용자에게 요청
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setAccounts(accounts);
+        setWeb3(web3Instance);
+        setIsConnecting(true);
       } catch (error) {
-        console.log(error);
+        console.error("User denied account access");
       }
-    } else {
-      alert("Please installed MetaMask");
+    }
+    // Legacy dapp browsers
+    else if (window.web3) {
+      const web3Instance = new Web3(window.web3.currentProvider);
+      setWeb3(web3Instance);
+    }
+    // Non-dapp browsers
+    else {
+      console.log(
+        "Non-Ethereum browser detected. You should consider trying MetaMask!"
+      );
     }
   };
 
   useEffect(() => {
-    if (isConnecting) {
-      // added task
+    if (web3) {
+      // You can perform additional tasks when web3 is available
     }
-  }, [isConnecting]);
+  }, [web3]);
 
   return (
     <div>
-      {!isConnecting && <p>Please Installed MetaMask !</p>}
+      {!isConnecting && <p>Please Install MetaMask!</p>}
 
       {!isConnecting && (
         <button
@@ -43,9 +52,7 @@ const App = () => {
         >
           <img
             className="w-8 h-8"
-            src={
-              "https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg"
-            }
+            src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg"
             alt="MetaMask Logo"
           />
           <p className="text-lg">Connect MetaMask</p>
@@ -54,7 +61,15 @@ const App = () => {
 
       {isConnecting && (
         <>
-          <div>Wallet Accounts: {walletAddress}</div>
+          <div>
+            <h1>Connected to MetaMask</h1>
+            <div>
+              <strong>Accounts:</strong>
+              {accounts.map((account, i) => (
+                <div key={i}>{account}</div>
+              ))}
+            </div>
+          </div>
         </>
       )}
     </div>
