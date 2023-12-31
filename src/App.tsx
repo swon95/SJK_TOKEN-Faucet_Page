@@ -1,45 +1,28 @@
-import React, { useEffect, useState } from "react";
-import Web3 from "web3";
+import { useState } from "react";
+import { providers } from 'ethers';
 
-const App: React.FC = () => {
-  const [web3, setWeb3] = useState<Web3 | null>(null);
-  const [accounts, setAccounts] = useState<string[]>([]);
-  const [isConnecting, setIsConnecting] = useState(false);
-
-  const walletConnect = async () => {
+const App = () => {
+    const [isConnecting, setIsConnecting] = useState(false);
+    const [walletAddress, setWalletAddress] = useState<null | string>(null)
+  
+    let provider: providers.Web3Provider;
+    
     // MetaMask 연결
-    if (window.ethereum) {
-      const web3Instance = new Web3(window.ethereum);
-      try {
-        // 계정 접근을 사용자에게 요청
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        setAccounts(accounts);
-        setWeb3(web3Instance);
-        setIsConnecting(true);
-      } catch (error) {
-        console.error("User denied account access");
-      }
-    }
-    // Legacy dapp browsers
-    else if (window.web3) {
-      const web3Instance = new Web3(window.web3.currentProvider);
-      setWeb3(web3Instance);
-    }
-    // Non-dapp browsers
-    else {
-      console.log(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
-    }
-  };
+    const walletConnect = async () => {
+      if (typeof window.ethereum !== 'undefined') {
+          // 메타마스크가 있을 시 지갑연결 요청
+          provider = await new providers.Web3Provider(window.ethereum);
+          const accounts = await provider.send('eth_requestAccounts', []);
+          console.log('connected to ', accounts[0]);
+          setWalletAddress(accounts[0]);
+          
+          setIsConnecting(true);
+        } else {
+          alert('please install MetaMask');
+        }
+      };
+    
 
-  useEffect(() => {
-    if (web3) {
-      // You can perform additional tasks when web3 is available
-    }
-  }, [web3]);
 
   return (
     <div>
@@ -64,10 +47,7 @@ const App: React.FC = () => {
           <div>
             <h1>Connected to MetaMask</h1>
             <div>
-              <strong>Accounts:</strong>
-              {accounts.map((account, i) => (
-                <div key={i}>{account}</div>
-              ))}
+              <div>Accounts: {walletAddress}</div>
             </div>
           </div>
         </>
