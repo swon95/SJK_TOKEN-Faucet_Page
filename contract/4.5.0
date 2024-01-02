@@ -1,0 +1,62 @@
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Progress: resolved 10, reused 3, downloaded 4, added 0
+Progress: resolved 18, reused 3, downloaded 6, added 0
+Progress: resolved 220, reused 192, downloaded 12, added 0
+Progress: resolved 283, reused 229, downloaded 19, added 0
+Progress: resolved 327, reused 237, downloaded 23, added 0
+Progress: resolved 344, reused 242, downloaded 25, added 0
+Progress: resolved 377, reused 289, downloaded 40, added 0
+Progress: resolved 378, reused 290, downloaded 54, added 0
+Progress: resolved 389, reused 290, downloaded 63, added 0
+Progress: resolved 438, reused 290, downloaded 72, added 0
+Progress: resolved 490, reused 296, downloaded 73, added 0
+Progress: resolved 500, reused 313, downloaded 73, added 0
+Progress: resolved 500, reused 329, downloaded 77, added 0
+Progress: resolved 500, reused 333, downloaded 104, added 0
+Progress: resolved 500, reused 333, downloaded 111, added 0
+Progress: resolved 500, reused 333, downloaded 117, added 0
+Progress: resolved 519, reused 333, downloaded 136, added 0
+Progress: resolved 593, reused 338, downloaded 147, added 0
+Progress: resolved 603, reused 353, downloaded 148, added 0
+Progress: resolved 603, reused 364, downloaded 160, added 0
+Progress: resolved 603, reused 364, downloaded 188, added 0
+ WARN  2 deprecated subdependencies found: debug@3.2.6, fsevents@2.1.3
+Progress: resolved 611, reused 364, downloaded 215, added 0
+Packages: +306 -1
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+Progress: resolved 611, reused 369, downloaded 231, added 0
+Progress: resolved 611, reused 369, downloaded 231, added 1
+Progress: resolved 611, reused 369, downloaded 231, added 215
+Progress: resolved 611, reused 369, downloaded 231, added 233
+Progress: resolved 611, reused 369, downloaded 231, added 234
+Progress: resolved 611, reused 369, downloaded 231, added 306, done
+
+devDependencies:
++ @nomicfoundation/hardhat-chai-matchers 2.0.0 (2.0.3 is available)
++ @nomicfoundation/hardhat-ethers 3.0.0 (3.0.5 is available)
++ @nomicfoundation/hardhat-network-helpers 1.0.0 (1.0.10 is available)
++ @nomicfoundation/hardhat-toolbox 4.0.0
++ @nomicfoundation/hardhat-verify 2.0.0 (2.0.3 is available)
++ @typechain/ethers-v6 0.5.0 (0.5.1 is available)
++ @typechain/hardhat 9.0.0 (9.1.0 is available)
++ @types/chai 4.2.0 (4.3.11 is available)
++ @types/mocha 10.0.6
++ @types/node 20.10.6
++ chai 4.2.0 (5.0.0 is available)
++ ethers 6.4.0 (6.9.1 is available)
++ hardhat-gas-reporter 1.0.8 (1.0.9 is available)
++ solidity-coverage 0.8.0 (0.8.5 is available)
++ ts-node 10.9.2
++ typechain 8.3.0 (8.3.2 is available)
++ typescript 5.3.3
+
+ WARN  Issues with peer dependencies found
+.
+├─┬ @nomicfoundation/hardhat-toolbox 4.0.0
+│ └── ✕ unmet peer solidity-coverage@^0.8.1: found 0.8.0
+├─┬ @typechain/hardhat 9.0.0
+│ └── ✕ unmet peer typechain@^8.3.1: found 8.3.0
+└─┬ @typechain/ethers-v6 0.5.0
+  └── ✕ unmet peer typechain@^8.3.1: found 8.3.0
+
+Done in 35.4s
