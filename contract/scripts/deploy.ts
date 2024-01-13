@@ -6,6 +6,7 @@ async function main() {
 
   const lockedAmount = ethers.parseEther("0.001");
 
+  // Hardhat의 `deployContract` 함수를 사용할 때, 두 번째 인자로 생성자 인자를 배열로 전달
   const lock = await ethers.deployContract("Lock", [unlockTime], {
     value: lockedAmount,
   });
